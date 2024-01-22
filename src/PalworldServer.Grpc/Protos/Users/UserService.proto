@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcUserService";
+
+import "Protos/Users/Requests/UserRequest.proto";
+import "Protos/Users/Responses/UserResponse.proto";
+
+package UserService;
+
+service UserService {
+    rpc GetUsers(UserRequest.GetUsersRequest) returns (UserResponse.GetUsersResponse);
+    rpc GetUser(UserRequest.GetUserRequest) returns (UserResponse.GetUserResponse);
+    rpc CreateUser(UserRequest.CreateUserRequest) returns (UserResponse.CreateUserResponse);
+    rpc UpdateUser(UserRequest.UpdateUserRequest) returns (UserResponse.UpdateUserResponse);
+    rpc DeleteUser(UserRequest.DeleteUserRequest) returns (UserResponse.DeleteUserResponse);
+}
