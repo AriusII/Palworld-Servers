@@ -5,25 +5,13 @@ on:
     branches: [ main ]
 
 jobs:
-  auth-dockerhub:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-      - uses: ./.github/workflows/docker-auth.yml
-
-  build-docker:
-    runs-on: ubuntu-latest
-    needs: auth-dockerhub
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-      - uses: ./.github/workflows/docker-build.yml
-
-  push-docker:
-    runs-on: ubuntu-latest
-    needs: build-docker
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-      - uses: ./.github/workflows/docker-push.yml
+      - uses: actions/checkout@v3
+      - name: Authentification DockerHub
+        run: echo ${{ secrets.DOCKERTOKEN }} | docker login -u ${{ secrets.DOCKERUSERNAME }} --password-stdin
+      - name: Construction de l'Image Docker depuis le Dockerfile
+        run: docker build -t PalworldServers:latest .
+      - name: Publication de l'Image sur DockerHub
+        run: docker push ${{ secrets.DOCKERUSERNAME }}/palserv:latest
