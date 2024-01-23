@@ -1,0 +1,5 @@
+name: Publication de l'Image sur DockerHub
+runs-on: ubuntu-latest
+steps:
+  - name: Push to DockerHub
+    run: docker push ${{ secrets.DOCKERUSERNAME }}/palserv:latest

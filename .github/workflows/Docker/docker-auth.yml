@@ -1,18 +1,5 @@
-##make the Docker Login Action available to the workflow, using the Secret "DOCKERTOKEN" as the password
-
-name: Auth to DockerHub
-
-on:
-  push:
-    branches: [ "main" ]
-    
-jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-        - uses: actions/checkout@v3
-        - name: Authenticate to DockerHub
-        uses: docker/login-action@v1
-        with:
-            username: ${{ secrets.DOCKERUSERNAME }}
-            password: ${{ secrets.DOCKERTOKEN }}
+name: Authentification DockerHub
+runs-on: ubuntu-latest
+steps:
+  - name: Login to DockerHub
+    run: echo ${{ secrets.DOCKERTOKEN }} | docker login -u ${{ secrets.DOCKERUSERNAME }} --password-stdin
