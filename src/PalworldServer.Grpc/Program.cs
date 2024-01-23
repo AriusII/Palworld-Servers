@@ -1,13 +1,18 @@
+using System.Net;
 using PalworldServer.Grpc.Extensions;
 using PalworldServer.Grpc.Implementations.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Configuration
     .AddJsonFile("appsettings.json")
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true)
     .AddEnvironmentVariables();
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Listen(IPAddress.Any, 12000);
+});
 
 // Add services to the container.
 builder.Services
