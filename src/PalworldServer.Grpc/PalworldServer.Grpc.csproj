@@ -31,6 +31,11 @@
 
     <ItemGroup>
       <Folder Include="Certs\" />
+      <Folder Include="Properties\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Properties\launchSettings.json" />
     </ItemGroup>
 
 </Project>
