@@ -5,7 +5,7 @@ using static GrpcUserService.UserService;
 
 namespace PalworldServer.Grpc.Implementations.Users;
 
-public sealed class UsersImpl(IUsersService usersService)
+public sealed class UsersImpl(IUsersService usersService, ILogger<UsersImpl> logger)
     : UserServiceBase
 {
     public override Task<GetUsersResponse> GetUsers(GetUsersRequest request, ServerCallContext context)
@@ -15,6 +15,7 @@ public sealed class UsersImpl(IUsersService usersService)
 
     public override async Task<GetUserResponse> GetUser(GetUserRequest request, ServerCallContext context)
     {
+        logger.LogInformation("GetUser called with Uuid: {Uuid}", request.Uuid);
         return await usersService.GetUser(request);
     }
 
