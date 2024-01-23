@@ -1,0 +1,37 @@
+name: CI/CD Pipeline .NET et Docker
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  IMAGE_NAME: palserv:latest
+  DOCKERFILE_PATH: src/PalworldServer.Grpc
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    environment: Development
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build en Release
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Authentification DockerHub
+        run: echo ${{ secrets.DOCKERTOKEN }} | docker login -u ${{ secrets.DOCKERUSERNAME }} --password-stdin
+
+      - name: Construction de l'Image Docker depuis le Dockerfile
+        run: docker build -t ${{ env.IMAGE_NAME }} -f ${{ env.DOCKERFILE_PATH }}/Dockerfile ${{ env.DOCKERFILE_PATH }} --build-arg BUILD_CONFIGURATION=Release
+
+      - name: Publication de l'Image sur DockerHub
+        run: docker push ${{ secrets.DOCKERUSERNAME }}/${{ env.IMAGE_NAME }}
