@@ -11,14 +11,7 @@ builder.Configuration
     .AddEnvironmentVariables();
 
 builder.WebHost
-    .UseKestrel()
-    .ConfigureKestrel(options =>
-        {
-            options.Listen(IPAddress.Any, 12123, listenOptions =>
-            {
-                listenOptions.Protocols = HttpProtocols.Http2;
-            });
-        });
+    .UseKestrel();
 
 // Add services to the container.
 builder.Services
