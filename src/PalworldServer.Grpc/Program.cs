@@ -1,4 +1,5 @@
 using System.Net;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using PalworldServer.Grpc.Extensions;
 using PalworldServer.Grpc.Implementations.Users;
 
@@ -9,10 +10,15 @@ builder.Configuration
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true)
     .AddEnvironmentVariables();
 
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.Listen(IPAddress.Any, 12123);
-});
+builder.WebHost
+    .UseKestrel()
+    .ConfigureKestrel(options =>
+        {
+            options.Listen(IPAddress.Any, 12123, listenOptions =>
+            {
+                listenOptions.Protocols = HttpProtocols.Http2;
+            });
+        });
 
 // Add services to the container.
 builder.Services
