@@ -41,6 +41,6 @@ jobs:
       - name: Authentification DockerHub
         run: echo ${{ secrets.DOCKERTOKEN }} | docker login -u ${{ secrets.DOCKERUSERNAME }} --password-stdin
       - name: Construction de l'Image Docker depuis le Dockerfile
-        run: docker build -t ${{ secrets.DOCKERUSERNAME }}/palserv:latest .
+        run: docker build -t ${{ secrets.DOCKERUSERNAME }}/palserv:latest -f src/PalworldServer.Grpc/Dockerfile .
       - name: Publication de l'Image sur DockerHub
         run: docker push ${{ secrets.DOCKERUSERNAME }}/palserv:latest
