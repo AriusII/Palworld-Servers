@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcServerService";
+
+import "Protos/Servers/Requests/ServerRequest.proto";
+import "Protos/Servers/Responses/ServerResponse.proto";
+
+package GrpcServerService;
+
+service ServerService {
+    rpc CreateServer (GrpcServerRequest.CreateServerRequest) returns (GrpcServerResponse.CreateServerResponse);
+    rpc GetServerInfo (GrpcServerRequest.GetServerInfoRequest) returns (GrpcServerResponse.GetServerInfoResponse);
+    rpc GetServerListFromStream (GrpcServerRequest.GetServerListFromStreamRequest) returns (stream GrpcServerResponse.GetServerListFromStreamResponse);
+}

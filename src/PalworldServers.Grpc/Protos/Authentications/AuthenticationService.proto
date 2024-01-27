@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcAuthenticationService";
+
+import "Protos/Authentications/Requests/AuthenticationRequest.proto";
+import "Protos/Authentications/Responses/AuthenticationResponse.proto";
+
+package GrpcAuthenticationService;
+
+service AuthenticationService {
+    rpc Authenticate(GrpcAuthenticationRequest.AuthenticationRequest) returns (GrpcAuthenticationResponse.AuthenticationResponse);
+}
