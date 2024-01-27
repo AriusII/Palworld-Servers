@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcAuthenticationResponse";
+
+import "Protos/Authentications/Models/AuthenticationModel.proto";
+
+package GrpcAuthenticationResponse;
+
+message AuthenticationResponse {
+  GrpcAuthenticationModel.JwtToken Token = 1;
+}

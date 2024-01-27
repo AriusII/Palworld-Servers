@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcServerResponse";
+
+import "Protos/Servers/Models/ServerModel.proto";
+
+package GrpcServerResponse;
+
+message CreateServerResponse {
+  GrpcServerModel.ServerInformationModel ServerInformationModel = 1;
+}
+
+message GetServerInfoResponse {
+  GrpcServerModel.ServerInformationModel ServerInformationModel = 1;
+}
+
+message GetServerListFromStreamResponse {
+  repeated GrpcServerModel.ServerInformationModel ServerInformationModel = 1;
+}

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcServerRequest";
+
+import "Protos/Servers/Models/ServerModel.proto";
+
+package GrpcServerRequest;
+
+message CreateServerRequest {
+  GrpcServerModel.CreateServerModel CreateServerModel = 1;
+}
+
+message GetServerInfoRequest {
+  string ServerUuid = 1;
+}
+
+message GetServerListFromStreamRequest {
+  int32 Offset = 1;
+}

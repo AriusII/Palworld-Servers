@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcAuthenticationModel";
+
+package GrpcAuthenticationModel;
+
+message AuthenticationMethod {
+  string UsernameOrEmail = 1;
+}
+
+message JwtToken {
+  string Token = 1;
+}

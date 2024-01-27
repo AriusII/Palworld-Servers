@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcServerModel";
+
+package GrpcServerModel;
+
+message ServerInformationModel {
+  string ServerUuid = 1;
+  string ServerName = 2;
+  string ServerDescription = 3;
+  reserved 4; // ServerImage
+  string WebsiteUrl = 5;
+  string ServerIpAddress = 6;
+  int32 ServerType = 7;
+  string ServerRate = 8;
+  int32 ServerViews = 9;
+  int32 ServerUpvotes = 10;
+  int32 ServerDownvotes = 11;
+  bool ServerIsVip = 12;
+  bool ServerIsDeleted = 13;
+}
+
+message CreateServerModel {
+  string UserUuid = 1;
+  string ServerName = 2;
+  string ServerDescription = 3;
+  string ServerIpAddress = 4;
+}
