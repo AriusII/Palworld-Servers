@@ -8,6 +8,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{52D5DA51
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PalworldServers.UnitTests", "tests\PalworldServers.UnitTests\PalworldServers.UnitTests.csproj", "{F14FA882-0683-4EFA-A149-2F1AE29E7362}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{6AF6E15A-58B9-438D-98E3-CBC03E6B7BF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PalworldServers.Mail", "libs\PalworldServers.Mail\PalworldServers.Mail.csproj", "{7340F7C0-FD94-4426-A668-8C0B0435F468}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,9 +26,14 @@ Global
 		{F14FA882-0683-4EFA-A149-2F1AE29E7362}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F14FA882-0683-4EFA-A149-2F1AE29E7362}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F14FA882-0683-4EFA-A149-2F1AE29E7362}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7340F7C0-FD94-4426-A668-8C0B0435F468}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7340F7C0-FD94-4426-A668-8C0B0435F468}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7340F7C0-FD94-4426-A668-8C0B0435F468}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7340F7C0-FD94-4426-A668-8C0B0435F468}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{090ED33C-DACA-43DA-B4CE-63D2445FB6D6} = {7FC8F2AA-9459-40CF-A2CB-E0BA9BDB9BD7}
 		{F14FA882-0683-4EFA-A149-2F1AE29E7362} = {52D5DA51-41CA-44BE-817F-74A5457DE64F}
+		{7340F7C0-FD94-4426-A668-8C0B0435F468} = {6AF6E15A-58B9-438D-98E3-CBC03E6B7BF3}
 	EndGlobalSection
 EndGlobal
