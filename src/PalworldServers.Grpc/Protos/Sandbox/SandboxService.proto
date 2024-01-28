@@ -1,0 +1,19 @@
+syntax = 'proto3';
+
+option csharp_namespace = "GrpcSandboxService";
+
+package GrpcSandboxService;
+
+service GrpcSandboxService {
+    rpc TestSendEmail (TestSendEmailRequest) returns (TestSendEmailResponse);
+}
+
+message TestSendEmailRequest {
+  string UserEmail = 1;
+  string UserEmailSubject = 2;
+  string UserEmailBody = 3;
+}
+
+message TestSendEmailResponse {
+  bool IsSended = 1;
+}

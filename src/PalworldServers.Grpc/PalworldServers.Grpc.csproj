@@ -48,4 +48,8 @@
         </Protobuf>
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\..\libs\PalworldServers.Mail\PalworldServers.Mail.csproj"/>
+    </ItemGroup>
+
 </Project>

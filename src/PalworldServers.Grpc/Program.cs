@@ -6,14 +6,18 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using PalworldServers.Grpc.Extensions;
 using PalworldServers.Grpc.Implementations.Authentications;
+using PalworldServers.Grpc.Implementations.Sandbox;
 using PalworldServers.Grpc.Implementations.Servers;
 using PalworldServers.Grpc.Implementations.Users;
 using PalworldServers.Grpc.Services.Interfaces;
 using PalworldServers.Grpc.Services.Tokens;
+using PalworldServers.Mail.Extensions;
+using PalworldServers.Mail.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var sysKey = builder.Configuration.GetSection("Token")["Key"]!;
+var emailSettings = builder.Configuration.GetSection("Email").Get<EmailOption>()!;
 
 builder.WebHost.ConfigureKestrel((context, options) =>
 {
@@ -50,6 +54,7 @@ builder.Services
     .RegisterServices()
     .RegisterRepositories()
     .AddCaerius("Prod")
+    .RegisterMailKit(emailSettings)
     .AddGrpc();
 
 var app = builder.Build();
@@ -60,6 +65,7 @@ app.UseAuthorization();
 app.MapGrpcService<AuthenticationImpl>();
 app.MapGrpcService<UsersImpl>();
 app.MapGrpcService<ServerImpl>();
+app.MapGrpcService<SandboxImpl>();
 
 // Configure the HTTP request pipeline.
 app.MapGet("/",

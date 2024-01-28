@@ -4,6 +4,7 @@ using PalworldServers.Grpc.Repositories.Servers;
 using PalworldServers.Grpc.Repositories.Users;
 using PalworldServers.Grpc.Services.Authentications;
 using PalworldServers.Grpc.Services.Interfaces;
+using PalworldServers.Grpc.Services.Sandbox;
 using PalworldServers.Grpc.Services.Servers;
 using PalworldServers.Grpc.Services.Users;
 
@@ -16,7 +17,8 @@ public static class ServiceCollectionExtension
         return services
             .AddScoped<IAuthService, AuthenticationService>()
             .AddScoped<IUsersService, UsersService>()
-            .AddScoped<IServerService, ServerService>();
+            .AddScoped<IServerService, ServerService>()
+            .AddScoped<ISandboxService, SandboxService>();
     }
 
     public static IServiceCollection RegisterRepositories(this IServiceCollection services)

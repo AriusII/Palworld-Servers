@@ -10,7 +10,7 @@ public sealed class ServerImpl(IServerService serverService) : ServerServiceBase
     public override async Task<CreateServerResponse> CreateServer(CreateServerRequest request,
         ServerCallContext context)
     {
-        var result = await serverService.CreateServer(request);
+        var result = await serverService.CreateServerAndGetBackit(request);
         return result;
     }
 
