@@ -7,5 +7,7 @@ import "Protos/Authentications/Models/AuthenticationModel.proto";
 package GrpcAuthenticationResponse;
 
 message AuthenticationResponse {
-  GrpcAuthenticationModel.JwtToken Token = 1;
+  GrpcAuthenticationModel.JwtToken Bearer = 1;
 }
+
+message RegisterResponse { }

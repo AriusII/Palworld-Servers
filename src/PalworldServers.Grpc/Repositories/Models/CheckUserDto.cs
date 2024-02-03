@@ -1,9 +1,9 @@
 namespace PalworldServers.Grpc.Repositories.Models;
 
-public sealed record CheckUserDto(short Type) : ISqlDataMapper<CheckUserDto>
+public sealed record CheckUserDto(int Type) : ISqlDataMapper<CheckUserDto>
 {
     public static CheckUserDto MapFromReader(SqlDataReader reader)
     {
-        return new CheckUserDto(reader.GetInt16(0));
+        return new CheckUserDto(reader.GetInt32(0));
     }
 }

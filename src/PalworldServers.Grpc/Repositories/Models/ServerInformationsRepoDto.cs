@@ -1,8 +1,9 @@
 using PalworldServers.Grpc.Repositories.Models.Enums;
+using Guid = System.Guid;
 
 namespace PalworldServers.Grpc.Repositories.Models;
 
-public sealed record ServerInformationsDto(
+public sealed record ServerInformationsRepoDto(
     Guid ServerUuid,
     string ServerName,
     string ServerDescription,
@@ -15,9 +16,9 @@ public sealed record ServerInformationsDto(
     int ServerDownvotes,
     bool ServerIsVip,
     bool ServerIsDeleted)
-    : ISqlDataMapper<ServerInformationsDto>
+    : ISqlDataMapper<ServerInformationsRepoDto>
 {
-    public static ServerInformationsDto MapFromReader(SqlDataReader reader)
+    public static ServerInformationsRepoDto MapFromReader(SqlDataReader reader)
     {
         var serverUuid = reader.GetGuid(0);
         var serverName = reader.GetString(1);
@@ -32,7 +33,7 @@ public sealed record ServerInformationsDto(
         var serverIsVip = reader.GetBoolean(10);
         var serverIsDeleted = reader.GetBoolean(11);
 
-        return new ServerInformationsDto(
+        return new ServerInformationsRepoDto(
             serverUuid,
             serverName,
             serverDescription,

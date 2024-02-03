@@ -17,9 +17,9 @@ public static class ServerServiceBuilder
     public static void SetupCreateServerSql(
         CreateServerDto serverFromRequest,
         CreateServerInformationDto serverInformationFromRequest,
-        ServerDto serverFromDatabase)
+        ServerGuidDto serverGuidFromDatabase)
     {
         ServerRepositoryMock.Setup(r => r.CreateServerSql(serverFromRequest, serverInformationFromRequest))
-            .ReturnsAsync(serverFromDatabase);
+            .ReturnsAsync(serverGuidFromDatabase);
     }
 }

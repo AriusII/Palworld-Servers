@@ -4,25 +4,42 @@ option csharp_namespace = "GrpcServerModel";
 
 package GrpcServerModel;
 
-message ServerInformationModel {
-  string ServerUuid = 1;
-  string ServerName = 2;
-  string ServerDescription = 3;
-  reserved 4; // ServerImage
-  string WebsiteUrl = 5;
-  string ServerIpAddress = 6;
-  int32 ServerType = 7;
-  string ServerRate = 8;
-  int32 ServerViews = 9;
-  int32 ServerUpvotes = 10;
-  int32 ServerDownvotes = 11;
-  bool ServerIsVip = 12;
-  bool ServerIsDeleted = 13;
+message CreateServerModel {
+  ServerInformationsModel ServerInformations = 1;
+  ServerGameplayModel ServerGameplay = 2;
+  ServerRateModel ServerRate = 3;
 }
 
-message CreateServerModel {
-  string UserUuid = 1;
+message GetServerModel {
+  ServerInformationsModel ServerInformations = 1;
+  ServerGameplayModel ServerGameplay = 2;
+  ServerRateModel ServerRate = 3;
+}
+
+message ServerInformationsModel {
+  string ServerGuid = 1;
   string ServerName = 2;
   string ServerDescription = 3;
   string ServerIpAddress = 4;
+  string WebsiteUrl = 5;
+  string EmailOwner = 6;
+  int32 ServerViews = 7;
+  int32 ServerUpvotes = 8;
+  int32 ServerDownvotes = 9;
+  bool ServerIsVip = 10;
+  bool ServerIsDeleted = 11;
+}
+
+message ServerGameplayModel {
+  int32 GamePlatform = 1;
+  int32 ServerType = 2;
+  int32 PlayersMax = 3;
+}
+
+message ServerRateModel {
+  int32 ExperienceRate = 1;
+  int32 DropRate = 2;
+  int32 TamingRate = 3;
+  int32 DaySpeed = 4;
+  int32 NightSpeed = 5;
 }

@@ -1,15 +1,13 @@
 using System.Collections.Immutable;
-using GrpcUserRequest;
-using GrpcUserResponse;
 using PalworldServers.Grpc.Repositories.Models;
-using PalworldServers.Grpc.Services.Users;
+using PalworldServers.Grpc.Services.Accounts;
 using User = GrpcUserModel.User;
 
 namespace PalworldServers.UnitTests.Services.Users;
 
 public sealed class UserServiceShould
 {
-    private static readonly UsersService UsersService = UserServiceBuilder.Build();
+    private static readonly AccountService AccountService = UserServiceBuilder.Build();
     private static readonly Guid GoodUserGuid = Guid.NewGuid();
     private static readonly Guid BadUserGuid = Guid.NewGuid();
 
@@ -39,7 +37,7 @@ public sealed class UserServiceShould
         UserServiceBuilder.SetupGetUsersSql(page, limit, users);
 
         // Assert
-        var myTest = await UsersService.GetUsers(new GetUsersRequest { Page = 1, Limit = 10 });
+        var myTest = await AccountService.GetUsers(new GetUsersRequest { Page = 1, Limit = 10 });
 
         myTest
             .Should()
@@ -95,7 +93,7 @@ public sealed class UserServiceShould
         UserServiceBuilder.SetupGetUserSql(GoodUserGuid, dbUser);
 
         // Assert
-        var myTest = await UsersService.GetUser(new GetUserRequest { Uuid = GoodUserGuid.ToString() });
+        var myTest = await AccountService.GetUser(new GetUserRequest { Uuid = GoodUserGuid.ToString() });
 
         myTest
             .Should()
@@ -135,7 +133,7 @@ public sealed class UserServiceShould
         UserServiceBuilder.SetupGetUserSql(BadUserGuid, noDbUser);
 
         // Assert
-        var myTest = await UsersService.GetUser(new GetUserRequest { Uuid = BadUserGuid.ToString() });
+        var myTest = await AccountService.GetUser(new GetUserRequest { Uuid = BadUserGuid.ToString() });
 
         myTest
             .Should()
@@ -185,7 +183,7 @@ public sealed class UserServiceShould
         UserServiceBuilder.SetupCreateUserSql(newUser, dbUser);
 
         // Assert
-        var myTest = await UsersService.CreateUser(new CreateUserRequest
+        var myTest = await AccountService.CreateUser(new CreateUserRequest
         {
             Username = newUser.Username,
             Email = newUser.Email,
@@ -220,7 +218,7 @@ public sealed class UserServiceShould
         UserServiceBuilder.SetupCreateUserSql_ReturnEmailAlreadyRegistered(newUser.Email, userEmailIsInUse);
 
         // Assert
-        var myTest = await UsersService.CreateUser(new CreateUserRequest
+        var myTest = await AccountService.CreateUser(new CreateUserRequest
         {
             Username = newUser.Username,
             Email = newUser.Email,
@@ -273,7 +271,7 @@ public sealed class UserServiceShould
         UserServiceBuilder.SetupUpdateUserSql(userToUpdate, dbUser);
 
         // Assert
-        var myTest = await UsersService.UpdateUser(new UpdateUserRequest
+        var myTest = await AccountService.UpdateUser(new UpdateUserRequest
         {
             Uuid = userToUpdate.Uuid.ToString(),
             Username = userToUpdate.Username,
@@ -321,7 +319,7 @@ public sealed class UserServiceShould
         UserServiceBuilder.SetupDeleteUserSql(GoodUserGuid, dbUser);
 
         // Assert
-        var myTest = await UsersService.DeleteUser(new DeleteUserRequest { Uuid = GoodUserGuid.ToString() });
+        var myTest = await AccountService.DeleteUser(new DeleteUserRequest { Uuid = GoodUserGuid.ToString() });
 
         myTest
             .Should()
