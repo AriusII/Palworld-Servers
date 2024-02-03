@@ -6,3 +6,5 @@ global using Caerius.Orm.Factories;
 global using System.Collections.Immutable;
 global using Caerius.Orm.Mappers;
 global using Microsoft.Data.SqlClient;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Authorization;

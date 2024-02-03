@@ -7,11 +7,11 @@ import "Protos/Servers/Models/ServerModel.proto";
 package GrpcServerRequest;
 
 message CreateServerRequest {
-  GrpcServerModel.CreateServerModel CreateServerModel = 1;
+  GrpcServerModel.CreateServerModel CreateServer = 1;
 }
 
 message GetServerInfoRequest {
-  string ServerUuid = 1;
+  string ServerGuid = 1;
 }
 
 message GetServerListFromStreamRequest {

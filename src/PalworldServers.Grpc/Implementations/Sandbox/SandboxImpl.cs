@@ -1,10 +1,9 @@
 using GrpcSandboxService;
 using PalworldServers.Grpc.Services.Sandbox;
-using static GrpcSandboxService.GrpcSandboxService;
 
 namespace PalworldServers.Grpc.Implementations.Sandbox;
 
-public class SandboxImpl(ISandboxService sandboxService) : GrpcSandboxServiceBase
+public class SandboxImpl(ISandboxService sandboxService) : GrpcSandboxService.GrpcSandboxService.GrpcSandboxServiceBase
 {
     public override async Task<TestSendEmailResponse> TestSendEmail(TestSendEmailRequest request,
         ServerCallContext context)

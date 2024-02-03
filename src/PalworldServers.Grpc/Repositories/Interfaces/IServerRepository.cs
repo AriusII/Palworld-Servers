@@ -1,13 +1,16 @@
+using PalworldServers.Grpc.Commons.Models.Server;
 using PalworldServers.Grpc.Repositories.Models;
-using PalworldServers.Grpc.Services.Models;
+using ServerInformationsDto = PalworldServers.Grpc.Commons.Models.Server.ServerInformationsDto;
 
 namespace PalworldServers.Grpc.Repositories.Interfaces;
 
 public interface IServerRepository
 {
-    Task<ServerDto> CreateServerSql(CreateServerDto serverDto,
-        CreateServerInformationDto serverInformationDto);
+    Task<ServerGuidDto> CreateServerSql(
+        ServerInformationsDto serverInformationsDto,
+        ServerGameplayDto serverGameplayDto,
+        ServerRateDto serverRateDto);
 
-    Task<ServerInformationsDto> GetServerByUuidSql(Guid serverUuid);
-    Task<ImmutableArray<ServerInformationsDto>> GetAListOfServersSql(int offset);
+    Task<ServerInformationsRepoDto> GetServerByUuidSql(Guid serverUuid);
+    Task<ImmutableArray<ServerInformationsRepoDto>> GetAListOfServersSql(int offset);
 }

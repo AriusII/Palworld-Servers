@@ -5,6 +5,6 @@ namespace PalworldServers.Grpc.Services.Interfaces;
 
 public interface IServerService
 {
-    Task<CreateServerResponse> CreateServerAndGetBackit(CreateServerRequest request);
+    Task<CreateServerResponse> CreateServer(CreateServerRequest request);
     Task<GetServerListFromStreamResponse> GetServerListFromStream(GetServerListFromStreamRequest request);
 }

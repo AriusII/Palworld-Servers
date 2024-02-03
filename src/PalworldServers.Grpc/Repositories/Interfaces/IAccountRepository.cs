@@ -2,8 +2,9 @@ using PalworldServers.Grpc.Repositories.Models;
 
 namespace PalworldServers.Grpc.Repositories.Interfaces;
 
-public interface IUsersRepository
+public interface IAccountRepository
 {
+    Task<UserGuidDto> CreateNewAccountWithEmail(string email);
     Task<UsersDto> GetUsersSql(int page, int limit);
     Task<UserDto> GetUserSql(Guid userGuid);
     Task<UserDto> CreateUserSql(CreateUserDto userInfoDto);

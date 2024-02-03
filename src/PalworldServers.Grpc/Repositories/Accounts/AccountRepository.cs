@@ -2,11 +2,20 @@ using Caerius.Orm.Commands.Writes;
 using PalworldServers.Grpc.Repositories.Interfaces;
 using PalworldServers.Grpc.Repositories.Models;
 
-namespace PalworldServers.Grpc.Repositories.Users;
+namespace PalworldServers.Grpc.Repositories.Accounts;
 
-public sealed record UsersRepository(ICaeriusDbConnectionFactory ConnectionFactory)
-    : IUsersRepository
+public sealed record AccountRepository(ICaeriusDbConnectionFactory ConnectionFactory)
+    : IAccountRepository
 {
+    public Task<UserGuidDto> CreateNewAccountWithEmail(string email)
+    {
+        var spParameters = new StoredProcedureBuilder("Authentication.sp_Create_New_Account_With_Email")
+            .AddParameter("@Email", email, SqlDbType.NVarChar)
+            .Build();
+        
+        return ConnectionFactory.FirstOrDefaultAsync<UserGuidDto>(spParameters);
+    }
+
     public Task<UsersDto> GetUsersSql(int page, int limit)
     {
         var spParameters = new StoredProcedureBuilder("Authentication.sp_Get_Users")

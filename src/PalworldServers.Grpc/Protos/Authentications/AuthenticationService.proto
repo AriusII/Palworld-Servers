@@ -8,5 +8,8 @@ import "Protos/Authentications/Responses/AuthenticationResponse.proto";
 package GrpcAuthenticationService;
 
 service AuthenticationService {
-    rpc Authenticate(GrpcAuthenticationRequest.AuthenticationRequest) returns (GrpcAuthenticationResponse.AuthenticationResponse);
+    rpc Login(GrpcAuthenticationRequest.AuthenticationRequest) returns (GrpcAuthenticationResponse.AuthenticationResponse);
+    rpc Logout(GrpcAuthenticationRequest.AuthenticationRequest) returns (GrpcAuthenticationResponse.AuthenticationResponse);
+    rpc Register(GrpcAuthenticationRequest.RegisterRequest) returns (GrpcAuthenticationResponse.RegisterResponse);
+    rpc RefreshToken(GrpcAuthenticationRequest.AuthenticationRequest) returns (GrpcAuthenticationResponse.AuthenticationResponse);
 }

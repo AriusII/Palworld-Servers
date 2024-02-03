@@ -7,6 +7,10 @@ import "Protos/Authentications/Models/AuthenticationModel.proto";
 package GrpcAuthenticationRequest;
 
 message AuthenticationRequest {
-  GrpcAuthenticationModel.AuthenticationMethod Method = 1;
-  string Password = 2;
+  GrpcAuthenticationModel.Credentials Credentials = 1;
 }
+
+message RegisterRequest {
+  GrpcAuthenticationModel.Register Register = 1;
+}
+

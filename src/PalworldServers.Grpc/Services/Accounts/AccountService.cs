@@ -6,18 +6,18 @@ using PalworldServers.Grpc.Repositories.Models;
 using PalworldServers.Grpc.Services.Interfaces;
 using User = GrpcUserModel.User;
 
-namespace PalworldServers.Grpc.Services.Users;
+namespace PalworldServers.Grpc.Services.Accounts;
 
-public sealed record UsersService(IUsersRepository UsersRepository)
+public sealed record AccountService(IAccountRepository AccountRepository)
     : IUsersService
 {
     public async Task<GetUsersResponse> GetUsers(GetUsersRequest request)
     {
-        var dbResult = await UsersRepository.GetUsersSql(request.Page, request.Limit);
+        var dbResult = await AccountRepository.GetUsersSql(request.Page, request.Limit);
 
         var users = dbResult.Users.Select(user => new User
         {
-            Uuid = user.Uuid.ToString(),
+            Guid = user.Uuid.ToString(),
             Username = user.Username,
             Email = user.Email,
             Password = user.Password,
@@ -35,30 +35,15 @@ public sealed record UsersService(IUsersRepository UsersRepository)
 
     public async Task<GetUserResponse> GetUser(GetUserRequest request)
     {
-        var userGuid = GuidExtension.Convert(request.Uuid);
+        var userGuid = GuidExtension.Convert(request.Guid);
 
-        var dbResult = await UsersRepository.GetUserSql(userGuid);
-
-        if (dbResult is null)
-            return new GetUserResponse
-            {
-                User = new User
-                {
-                    Uuid = Guid.Empty.ToString(),
-                    Username = string.Empty,
-                    Password = string.Empty,
-                    Email = string.Empty,
-                    IsAdmin = false,
-                    IsBlocked = false,
-                    IsDeleted = false
-                }
-            };
+        var dbResult = await AccountRepository.GetUserSql(userGuid);
 
         return new GetUserResponse
         {
             User = new User
             {
-                Uuid = dbResult.Uuid.ToString(),
+                Guid = dbResult.Uuid.ToString(),
                 Username = dbResult.Username,
                 Email = dbResult.Email,
                 Password = dbResult.Password,
@@ -75,13 +60,13 @@ public sealed record UsersService(IUsersRepository UsersRepository)
         if (userEmail.IsInUse) return new CreateUserResponse();
 
         var dbResult =
-            await UsersRepository.CreateUserSql(new CreateUserDto(request.Username, request.Password, request.Email));
+            await AccountRepository.CreateUserSql(new CreateUserDto(request.Username, request.Password, request.Email));
 
         return new CreateUserResponse
         {
             User = new User
             {
-                Uuid = dbResult.Uuid.ToString(),
+                Guid = dbResult.Uuid.ToString(),
                 Username = dbResult.Username,
                 Email = dbResult.Email,
                 Password = dbResult.Password,
@@ -94,16 +79,16 @@ public sealed record UsersService(IUsersRepository UsersRepository)
 
     public async Task<UpdateUserResponse> UpdateUser(UpdateUserRequest request)
     {
-        var userGuid = GuidExtension.Convert(request.Uuid);
+        var userGuid = GuidExtension.Convert(request.Guid);
 
-        var dbResult = await UsersRepository.UpdateUserSql(
+        var dbResult = await AccountRepository.UpdateUserSql(
             new UserInfoDto(userGuid, request.Username, request.Password, request.Email));
 
         return new UpdateUserResponse
         {
             User = new User
             {
-                Uuid = dbResult.Uuid.ToString(),
+                Guid = dbResult.Uuid.ToString(),
                 Username = dbResult.Username,
                 Email = dbResult.Email,
                 Password = dbResult.Password,
@@ -116,15 +101,15 @@ public sealed record UsersService(IUsersRepository UsersRepository)
 
     public async Task<DeleteUserResponse> DeleteUser(DeleteUserRequest request)
     {
-        var userGuid = GuidExtension.Convert(request.Uuid);
+        var userGuid = GuidExtension.Convert(request.Guid);
 
-        var dbResult = await UsersRepository.DeleteUserSql(userGuid);
+        var dbResult = await AccountRepository.DeleteUserSql(userGuid);
 
         return new DeleteUserResponse
         {
             User = new User
             {
-                Uuid = dbResult.Uuid.ToString(),
+                Guid = dbResult.Uuid.ToString(),
                 Username = dbResult.Username,
                 Email = dbResult.Email,
                 Password = dbResult.Password,
@@ -137,7 +122,7 @@ public sealed record UsersService(IUsersRepository UsersRepository)
 
     private async Task<UserEmailDto> CheckIfEmailIsAlreadyInUse(string email)
     {
-        var userEmailIsInUse = await UsersRepository.CheckIfEmailIsAlreadyInUseSql(email);
+        var userEmailIsInUse = await AccountRepository.CheckIfEmailIsAlreadyInUseSql(email);
 
         return userEmailIsInUse.IsInUse
             ? new UserEmailDto(true)

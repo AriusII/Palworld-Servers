@@ -4,10 +4,17 @@ option csharp_namespace = "GrpcAuthenticationModel";
 
 package GrpcAuthenticationModel;
 
-message AuthenticationMethod {
-  string UsernameOrEmail = 1;
+message Credentials {
+  string Email = 1;
+  string Password = 2;
 }
 
 message JwtToken {
   string Token = 1;
+}
+
+message Register {
+  string Email = 1;
+  string Username = 2;
+  string Password = 3;
 }

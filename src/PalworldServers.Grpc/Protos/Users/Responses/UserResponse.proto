@@ -7,23 +7,23 @@ import "Protos/Users/Models/UserModel.proto";
 package UserResponse;
 
 message GetUsersResponse {
-  repeated UserModel.User users = 1;
-  int32 total = 2;
-  bool lastPage = 3;
+  repeated UserModel.User Users = 1;
+  int32 Total = 2;
+  bool LastPage = 3;
 }
 
 message GetUserResponse {
-  UserModel.User user = 1;
+  UserModel.User User = 1;
 }
 
 message CreateUserResponse {
-  UserModel.User user = 1;
+  UserModel.User User = 1;
 }
 
 message UpdateUserResponse {
-  UserModel.User user = 1;
+  UserModel.User User = 1;
 }
 
 message DeleteUserResponse {
-  UserModel.User user = 1;
+  UserModel.User User = 1;
 }

@@ -1,22 +1,20 @@
 using System.Security.Authentication;
 using System.Text;
 using Caerius.Orm.Extensions;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using PalworldServers.Grpc.Extensions;
+using PalworldServers.Grpc.Implementations.Accounts;
 using PalworldServers.Grpc.Implementations.Authentications;
 using PalworldServers.Grpc.Implementations.Sandbox;
 using PalworldServers.Grpc.Implementations.Servers;
-using PalworldServers.Grpc.Implementations.Users;
-using PalworldServers.Grpc.Services.Interfaces;
-using PalworldServers.Grpc.Services.Tokens;
 using PalworldServers.Mail.Extensions;
 using PalworldServers.Mail.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var sysKey = builder.Configuration.GetSection("Token")["Key"]!;
+var sysKey = builder.Configuration.GetSection("Token").GetSection("Key").Value!;
 var emailSettings = builder.Configuration.GetSection("Email").Get<EmailOption>()!;
 
 builder.WebHost.ConfigureKestrel((context, options) =>
@@ -24,34 +22,32 @@ builder.WebHost.ConfigureKestrel((context, options) =>
     options.ConfigureHttpsDefaults(httpsOptions => { httpsOptions.SslProtocols = SslProtocols.Tls13; });
 });
 
-builder.Services
-    .AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
-builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(sysKey)),
-            ValidateIssuer = false,
-            ValidateAudience = false
+            ValidIssuer = "https://id.palworld-servers.com",
+            ValidAudience = "https://grpc.palworld-servers.com"
+        };
+        options.Configuration = new OpenIdConnectConfiguration
+        {
+            SigningKeys = { new SymmetricSecurityKey(Encoding.UTF8.GetBytes(sysKey)) }
         };
     });
 
 
-builder.Services
-    .AddAuthorizationBuilder()
+builder.Services.AddAuthorizationBuilder()
     .AddPolicy("Admin", policy => policy.RequireRole("Admin"))
     .AddPolicy("User", policy => policy.RequireRole("User"));
 
 // Add services to the container.
 builder.Services
     .AddLogging()
-    .AddSingleton<ITokenService>(new TokenService(sysKey))
-    .RegisterServices()
+    .RegisterServices(builder.Configuration)
     .RegisterRepositories()
     .AddCaerius("Prod")
     .RegisterMailKit(emailSettings)

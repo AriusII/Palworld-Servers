@@ -1,16 +1,16 @@
 using PalworldServers.Grpc.Repositories.Interfaces;
 using PalworldServers.Grpc.Repositories.Models;
-using PalworldServers.Grpc.Services.Users;
+using PalworldServers.Grpc.Services.Accounts;
 
 namespace PalworldServers.UnitTests.Services.Users;
 
 public static class UserServiceBuilder
 {
-    private static readonly Mock<IUsersRepository> UserRepositoryMock = new();
+    private static readonly Mock<IAccountRepository> UserRepositoryMock = new();
 
-    public static UsersService Build()
+    public static AccountService Build()
     {
-        return new UsersService(UserRepositoryMock.Object);
+        return new AccountService(UserRepositoryMock.Object);
     }
 
     public static void SetupGetUsersSql(int page, int limit, UsersDto users)

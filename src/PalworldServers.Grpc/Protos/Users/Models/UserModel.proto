@@ -5,7 +5,7 @@ option csharp_namespace = "GrpcUserModel";
 package UserModel;
 
 message User {
-  string Uuid = 1;
+  string Guid = 1;
   string Username = 2;
   string Password = 3;
   string Email = 4;
